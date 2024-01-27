@@ -1,0 +1,59 @@
+"<!DOCTYPE html>"
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #img {
+      /* Your CSS styles for the button go here */
+      background-color: transparent; /* Example background color */
+      color: #333; /* Example text color */
+      /* Add any other styles you want to apply to the button */
+    }
+        /* Adjust the size of the SVG icon */
+        button svg {
+          width: 30px; /* Adjust the width as needed */
+          height: 30px; /* Adjust the height as needed */
+        }
+      </style>
+    <title>Quote of the day</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="quote-box">
+    <h2>Quote of the day</h2>
+    <blockquote id="quote">Loading...</blockquote>
+    <span id="author">Loading...</span>
+    <div>
+        <button onclick="getquote(api_url)">New Quote</button>
+        <button id="img" onclick="tweet()" type="button">
+            <svg class="custom-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/>
+              </svg>
+            Tweet
+        </button>
+    </div>
+</div>
+
+<script>
+    const quote =document.getElementById("quote");
+    const author =document.getElementById("author");
+const api_url = "https://api.quotable.io/random";
+
+async function getquote(url){
+    const response = await fetch(url);
+    var data = await response.json();
+    quote.innerHTML = data.content;
+    author.innerHTML = data.author;    
+}
+getquote(api_url);
+
+function tweet(){
+    window.open("https://twitter.com/intent/tweet?text=" + quote.innerHTML + "---- by " + author.innerHTML ,"Tweet window", "width=600, height=300")
+}
+
+</script>
+
+
+</body>
+</html>
